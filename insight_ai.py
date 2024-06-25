@@ -2,50 +2,30 @@ import getpass
 import os
 import sys
 import time
+import sqlite3
 import pandas as pd
 import streamlit as st
-from sqlalchemy import URL
-from langchain.llms import OpenAI
-from langchain_community.utilities import SQLDatabase
-from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
-from langchain_community.agent_toolkits import create_sql_agent
-from langchain_community.vectorstores import FAISS
-from langchain.chains import create_sql_query_chain
-from langchain_openai import ChatOpenAI
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate, FewShotPromptTemplate, PromptTemplate
-from langchain_core.example_selectors import SemanticSimilarityExampleSelector
-from langchain_openai import OpenAIEmbeddings, AzureOpenAIEmbeddings
 import pygwalker as pyg
-from pygwalker.api.streamlit import StreamlitRenderer
-import sqlite3
-from pandasai import SmartDataframe, Agent
-from pandasai.llm.openai import OpenAI
-from pandasai.responses.response_parser import ResponseParser
-import vizro.plotly.express as px
 from vizro_ai import VizroAI
+import vizro.plotly.express as px
+from langchain.llms import OpenAI
+from langchain_openai import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings, AzureOpenAIEmbeddings
+from langchain.chains import create_sql_query_chain
+from langchain_community.vectorstores import FAISS
+from langchain_community.utilities import SQLDatabase
+from langchain_community.agent_toolkits import create_sql_agent
+from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
+from langchain_core.prompts import ChatPromptTemplate, FewShotPromptTemplate, PromptTemplate
+from pygwalker.api.streamlit import StreamlitRenderer
 
 ### Connect SQLite3 Database ###
 db = SQLDatabase.from_uri("sqlite:///Chinook.db")
 conn = sqlite3.connect("Chinook.db")
 cursor = conn.cursor()
 table_info = db.table_info
-
-class StreamlitResponse(ResponseParser):
-    def __init__(self, context) -> None:
-        super().__init__(context)
-
-    def format_dataframe(self, result):
-        st.dataframe(result["value"])
-        return
-
-    def format_plot(self, result):
-        st.image(result["value"])
-        return
-
-    def format_other(self, result):
-        st.write(result["value"])
-        return
 
 # @st.cache_data
 def generate_dataframe(question):
@@ -137,11 +117,7 @@ def generate_dataframe(question):
         [("system", system, ), ("human", "{query}")]
     ).partial(dialect=db.dialect)
     validation_chain = valid_prompt | llm | StrOutputParser()
-    # validation_chain.get_prompts()[0].pretty_print()
     full_chain = {"query": chain} | validation_chain
-    # full_chain.get_prompts()[0].pretty_print()
-    # full_chain.get_prompts()[1].pretty_print()
-    # st.info(llm(question))
     final_query = full_chain.invoke({"question": question})
 
     ### Execute the SQL query & insert into dataframe ###
