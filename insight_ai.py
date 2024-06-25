@@ -152,10 +152,10 @@ tab1, tab2, tab3 = st.tabs(["Data Agent", "Visual Analyzer", "BI Wizard"])
 
 with st.sidebar:
     st.title("Insight AI :chains:")
-    openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
+    openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password', placeholder='Open API Key')
     if not openai_api_key.startswith('sk-'):
         st.warning('Please input OpenAI API key!', icon='⚠')
-    selected_base_url = st.sidebar.text_input('Proxy')
+    selected_base_url = st.sidebar.text_input('Proxy', placeholder='Base URL path for API requests')
     st.subheader('Models and parameters')
     selected_model = st.sidebar.selectbox('Choose a ChatGPT model', ['gpt-3.5-turbo', 'gpt-4'], key='selected_model')
     selected_temperature = st.sidebar.slider('Temperature', min_value=0.01, max_value=1.0, value=0.1, step=0.01)
