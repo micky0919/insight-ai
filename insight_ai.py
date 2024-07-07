@@ -150,20 +150,24 @@ tab1, tab2, tab3 = st.tabs(["Data Agent", "Visual Analyzer", "BI Wizard"])
 
 with st.sidebar:
     st.title("Insight AI :chains:")
-    openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password', placeholder='Open API Key')
-    selected_base_url = st.sidebar.text_input('Proxy', placeholder='Base URL path for API requests')
+    ### Connect OpenAI ###
+    user_api_key = st.sidebar.text_input('OpenAI API Key', type='password', placeholder='Open API Key')
+    # selected_base_url = st.sidebar.text_input('Proxy', placeholder='Base URL path for API requests')
+    if user_api_key:
+        openai_api_key = user_api_key
+        selected_base_url = "https://api.openai.com/v1"
+    else:
+        st.warning('Please input OpenAI API key!', icon='⚠')
+        openai_api_key = st.secrets["openai_api_key"]
+        selected_base_url = st.secrets["selected_base_url"]
+        # os.environ["OPENAI_API_KEY"] = getpass.getpass()
     st.subheader('Models and parameters')
     selected_model = st.sidebar.selectbox('Choose a ChatGPT model', ['gpt-3.5-turbo', 'gpt-4'], key='selected_model')
     selected_temperature = st.sidebar.slider('Temperature', min_value=0.01, max_value=1.0, value=0.1, step=0.01)
     selected_top_p = st.sidebar.slider('Top P', min_value=0.01, max_value=1.0, value=0.9, step=0.01)
-
-    if not openai_api_key.startswith('sk-'):
-        st.warning('Please input OpenAI API key!', icon='⚠')
-    else:
-        ### Connect OpenAI ###
-        # os.environ["OPENAI_API_KEY"] = getpass.getpass()
-        llm = ChatOpenAI(openai_api_key=openai_api_key, base_url=selected_base_url, model=selected_model,
-                        temperature=selected_temperature, top_p=selected_top_p)
+    llm = ChatOpenAI(openai_api_key=openai_api_key, base_url=selected_base_url, model=selected_model,
+                     temperature=selected_temperature, top_p=selected_top_p)
+    #####################
     st.write('© 2024 Micky Wong, All Rights Reserved')
     st.markdown("""---""")
     st.sidebar.header("About")
