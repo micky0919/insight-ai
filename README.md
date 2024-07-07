@@ -43,9 +43,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Screenshot 2024-07-01 at 3 10 15 PM](https://github.com/micky0919/insight-ai/assets/79015802/403d018d-b21d-407a-ab91-fd7199549ef2)
+https://github.com/micky0919/insight-ai/assets/79015802/922f4fe2-2410-4046-9cf8-0c62e6c3a51a
 
-Insight AI is an GenAI-driven analysis tool that harnesses the power of Large Language Models (LLMs) to generate datasets, visualizations, and dashboards based on user prompts. By providing guidance, users can obtain insightful responses from the model.
+Insight AI is a powerful analysis tool that leverage Large Language Models (LLMs) to generate datasets, visualizations, and dashboards based on user prompts. By providing guidance, users can obtain insightful responses from the model.
 
 The core capabilities of Insight AI encompass the following aspects:
 
@@ -59,6 +59,9 @@ The core capabilities of Insight AI encompass the following aspects:
 
 **Multi-Agents Framework**: The Multi-Agents Framework within Insight AI is a data-driven and self-evolving system consisting of multiple LLM agents, each responsible for different areas of insight discovery. These agents work collaboratively to validate the generated results and make necessary self-corrections based on ongoing analysis and feedback.
 
+To experience Insight AI yourself, please feel free to access the application on [Streamlit Cloud](https://insightai.streamlit.app/
+). 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -70,7 +73,7 @@ The core capabilities of Insight AI encompass the following aspects:
 
 ### Installation
 
-1. Get a OpenAI API Key at [[https://example.com](https://openai.com/index/openai-api/)]([https://example.com](https://openai.com/index/openai-api/))
+1. Get a OpenAI API Key
 2. Clone the repo
    ```sh
    git clone https://github.com/micky0919/insight-ai.git
@@ -79,8 +82,14 @@ The core capabilities of Insight AI encompass the following aspects:
    ```sh
    pip install -r requirements.txt
    ```
-4. Enter your API in Environment Variable or on the Web App
-   A .env file with a OPENAI_API_KEY is required to run the workflow. See the .env.sample file as an example.
+4. Enter your API Key in Environment Variable or on the Web App
+
+5. After all the set up, open Command Prompt and go to the direcotry where insight_ai.py located in
+
+6. Run the Streamlit app
+   ```sh
+   Streamlit run insight_ai.py
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -88,7 +97,8 @@ The core capabilities of Insight AI encompass the following aspects:
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-Given Open API Key is input on the sidebar
+
+Given OpenAI API Key is input on the sidebar or environment variable
 
 Data Agent:
 1. Users enter the question they want to get answer from the data into Data Agent
@@ -103,10 +113,9 @@ Visual Analyzer:
 BI Wizard:
 1. User enter a prompt to the BI Wizard to generate a desired visual for analysis
 2. User click Generate
-3. BI Wizard return a diagram according to the instruction and also a text explanation of the diagram generated 
-
+3. BI Wizard return a diagram according to the instruction and also a text explanation of the diagram generated
+   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
